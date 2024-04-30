@@ -9,3 +9,6 @@
     display: flex;
     align-items: center;
 }
+.course_banner{
+    height: 120px;
+}

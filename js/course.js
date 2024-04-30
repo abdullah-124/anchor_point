@@ -1,7 +1,28 @@
 console.log("HEllo")
 let course_box = document.getElementById('courses_box')
 let total_course = document.getElementById('total_course')
-let courses = ""
+let category_box = document.getElementById('category_box')
+let courses = []
+let category = []
+function load_category(){
+    fetch('http://127.0.0.1:8000/course/category/')
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data)
+        category = data
+        for(i of data){
+            category_box.innerHTML += `<button onclick="filter_data(${i.id})" class="mx-2 btn btn-warning btn-sm">${i.category_name}</button>`
+        }
+    })
+}
+load_category()
+
+function filter_data(id){
+    filter_courses = courses.filter(d => d.category == id)
+    // console.log(filter_courses)
+    show_courses(filter_courses)
+}
+
 function load_data(){
     fetch('http://127.0.0.1:8000/course/list/')
     .then(res => res.json())
@@ -13,27 +34,32 @@ function load_data(){
     .catch(er=>console.log(er))
 }
 function show_courses(data){
-    console.log(data)
+    // console.log(data)
+    course_box.innerHTML = ""
     for(let i of data){
+        let x = category.find(j => j.id == i.category)
+        // console.log(x.category_name)
         course_box.innerHTML += `
-            <div class="col rounded border ">
+            <div class="col">
+            <div class="p-2 rounded border ">
             <article class="p-3">
-            <img class="img-fluid rounded" src="${i.image}" alt="">
+            <img class="course_banner img-fluid rounded" src="${i.image}" alt="">
             <div class="d-flex justify-content-between">
-            <p>Keyword</p>
+            <p class="text-muted">${x.category_name}</p>
             <p>⭐ Reviews</p>
             </div>
-            <h6>Name</h6>
-            <p>by Name</p>
-            <div class="d-flex justify-content-between">
-            <button class="btn btn-warning fw-bold">Enroll now</button>
-            <p>Price</p>
+            <h6>${i.name}</h6>
+            <p>by ${i.teacher_name}</p>
+            <div class="d-flex justify-content-between align-item-center">
+            <p><button class="btn btn-warning btn-sm fw-bold">Enroll now</button></p>
+            <p class="text-danger fw-bold">${i.fee} $</p>
             </div>
             </article>
+            </div>
             </div>
         `
     }
 }
 load_data()
-console.log(courses.length)
+// console.log(courses.length)
 
