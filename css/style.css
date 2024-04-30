@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header_banner{
+    width: 100vw;
+    height: 80vh;
+    background: url("./img/header_banner.png") no-repeat center;
+    display: flex;
+    align-items: center;
+}
