@@ -11,15 +11,16 @@ function load_category(){
         // console.log(data)
         category = data
         for(i of data){
-            category_box.innerHTML += `<button onclick="filter_data(${i.id})" class="mx-2 btn btn-warning btn-sm">${i.category_name}</button>`
+            category_box.innerHTML += `<button onclick="filter_data('${i.category_name}')" class="mx-2 btn btn-warning btn-sm">${i.category_name}</button>`
         }
     })
 }
 load_category()
 
-function filter_data(id){
-    filter_courses = courses.filter(d => d.category == id)
-    // console.log(filter_courses)
+// filter by category
+function filter_data(category_name){
+    filter_courses = courses.filter(d => d.category == category_name)
+    // console.log()
     show_courses(filter_courses)
 }
 
@@ -38,7 +39,6 @@ function show_courses(data){
     // console.log(data)
     course_box.innerHTML = ""
     for(let i of data){
-        let x = category.find(j => j.id == i.category).category_name
         // console.log(x.category_name)
         course_box.innerHTML += `
             <div class="col">
@@ -46,7 +46,7 @@ function show_courses(data){
             <article class="p-3">
             <img class="course_banner img-fluid rounded" src="${i.image}" alt="">
             <div class="d-flex justify-content-between">
-            <p class="text-muted">${x}</p>
+            <p class="text-muted">${i.category}</p>
             <p>⭐ Reviews</p>
             </div>
             <h6>${i.name}</h6>
