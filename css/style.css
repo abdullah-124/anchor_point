@@ -12,3 +12,6 @@
 .course_banner{
     height: 120px;
 }
+.login_banner{
+    background: url('./img/login_banner.png') no-repeat center;
+}
