@@ -10,6 +10,7 @@ function load_category(){
     .then(data => {
         // console.log(data)
         category = data
+        // show_category_data(data)
         for(i of data){
             category_box.innerHTML += `<button onclick="filter_data('${i.category_name}')" class="mx-2 btn btn-warning btn-sm">${i.category_name}</button>`
         }
