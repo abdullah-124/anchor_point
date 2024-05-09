@@ -1,6 +1,6 @@
 const form = document.querySelector("#userinfo");
 
-async function sendData() {
+async function sendData(event) {
     const formData = new FormData(form);
     console.log(formData)
   try {
@@ -10,14 +10,16 @@ async function sendData() {
     });
     let msg = await response.json();
     console.log(msg)
-    alert(msg.username[0])
+    alert('register successfull please login')
+    window.location.href = 'login.html'
   } catch (e) {
-    console.error(e);
+    console.log(e);
   }
+  event.preventDefault()
 }
 
 // Take over form submission
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  sendData();
+  sendData(event);
 });

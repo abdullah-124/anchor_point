@@ -1,4 +1,14 @@
 let cat_box = document.getElementById('trending_category_box')
+function load_category(){
+    fetch('https://anchor-point-drf.onrender.com/course/category/')
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data)
+        show_category_data(data)
+        
+    })
+}
+load_category()
 function show_category_data(data){
     cat_box.innerHTML = ""
     for(i of data){
