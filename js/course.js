@@ -34,7 +34,6 @@ function load_data(){
     .then(res => res.json())
     .then(data =>{
         courses = data 
-        total_course.innerText = data.length
         show_courses(data)
     })
     .catch(er=>console.log(er))
@@ -42,6 +41,7 @@ function load_data(){
 load_data()
 function show_courses(data){
     // console.log(data)
+    total_course.innerText = data.length
     course_box.innerHTML = ""
     for(let i of data){
         // console.log(x.category_name)
@@ -57,7 +57,7 @@ function show_courses(data){
             <h6>${i.name}</h6>
             <p>by ${i.teacher_name}</p>
             <div class="d-flex justify-content-between align-item-center">
-            <p><button class="btn btn-warning btn-sm fw-bold">Enroll now</button></p>
+            <p><button onclick="course_info(${i.id})" class="btn btn-warning btn-sm fw-bold">Enroll now</button></p>
             <p class="text-danger fw-bold">${i.fee} $</p>
             </div>
             </article>
@@ -67,4 +67,9 @@ function show_courses(data){
     }
 }
 // console.log(courses.length)
+function course_info(id){
+    // console.log(id)
+    localStorage.setItem('course_id',id)
+    window.location.href = 'course_info.html'
+}
 

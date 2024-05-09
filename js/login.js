@@ -6,6 +6,7 @@ async function sendData(e) {
     const password = document.getElementById('login_password').value
     // console.log(username,password)
     
+    // fetch("https://anchor-point-drf.onrender.com/users/login/", {
     fetch("https://anchor-point-drf.onrender.com/users/login/", {
         method: "POST",
         headers:{"content-type":"application/json"},
@@ -15,6 +16,7 @@ async function sendData(e) {
       console.log(data)
       localStorage.setItem("user_id",data.user)
       localStorage.setItem("login", true)
+      window.location.href = 'index.html'
     })
 }
 

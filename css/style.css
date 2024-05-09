@@ -15,3 +15,9 @@
 .login_banner{
     background: url('./img/login_banner.png') no-repeat center;
 }
+
+.course_info_banner{
+    width: 50%;
+    height: auto;
+    border-radius: 12px;
+}
