@@ -35,6 +35,7 @@ function load_data(){
     .then(data =>{
         courses = data 
         show_courses(data)
+        localStorage.setItem('courses',JSON.stringify(data))
     })
     .catch(er=>console.log(er))
 }

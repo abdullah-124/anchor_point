@@ -1,17 +1,18 @@
 course_id = window.localStorage.getItem('course_id')
+user_id = window.localStorage.getItem('user_id')
 course_name = document.getElementById('course_name')
 container = document.getElementById('course_info_container')
 
-function load_course_info(){
+function load_course_info() {
     fetch(`https://anchor-point-drf.onrender.com/course/list/${course_id}/`)
-    .then(res => res.json())
-    .then(data => show_info(data))
+        .then(res => res.json())
+        .then(data => show_info(data))
 }
 load_course_info()
 
 
 
-function show_info(data){
+function show_info(data) {
     console.log(data)
     container.innerHTML = `
         <div class="row">
@@ -42,7 +43,7 @@ function show_info(data){
 
                 </div>
             </div>
-            <div class="col-2 border rounded mx-auto">
+            <div class="col-lg-2 col-12 border rounded mx-auto">
                 <div class="col-12 bg-primary p-1 mt-3 rounded text-light text-center">
                     <small>This course fee: <br></small>
                     <h5>${data.fee} $</h5>
@@ -59,7 +60,7 @@ function show_info(data){
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Lesson</p>
-                        <p>${data.duration*10}</p>
+                        <p>${data.duration * 10}</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p>Cerfication</p>
@@ -71,7 +72,43 @@ function show_info(data){
                     </div>
                     <img src="css/img/payment.png.png" alt="" class="img-fluid">
                 </div>
+                <div >
+                    <hr>
+                    <form action="">
+                        <label for="mobile_num">Mobile Number</label>
+                        <br>
+                        <input required class="form-control" type="tel" id="mobile_num">
+                        <br>
+                        <button type="submit" onclick="handle_checkout(event)" class="btn btn-outline-primary">Checkout</button>
+                    </form>
+                    <hr>
+                </div>
             </div>
     </div>
     `
+}
+
+function handle_checkout(e){
+    e.preventDefault()
+    if(!user_id){
+        alert('Please login befor chekout')
+        window.location.href = 'login.html'
+        return
+    }
+    const mobile_number = document.getElementById('mobile_num').value
+    const data = JSON.stringify({user_id,course_id,mobile_number})
+    fetch("https://anchor-point-drf.onrender.com/course/checkout/", {
+        method: "POST",
+        headers:{"content-type":"application/json"},
+        body: data,
+    }).then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if(data.student_id){
+            localStorage.setItem('student_id',data.student_id)
+            alert(data.message)
+        }
+
+    })
+    .catch(er=>console.log(er))
 }
