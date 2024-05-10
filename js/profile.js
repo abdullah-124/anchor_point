@@ -72,3 +72,9 @@ function show_courses(data){
         `
     }
 }
+
+function course_info(id){
+    // console.log(id)
+    localStorage.setItem('course_id',id)
+    window.location.href = 'course_info.html'
+}

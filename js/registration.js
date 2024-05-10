@@ -14,6 +14,7 @@ function register_handle(e){
       body: data,
   }).then(res => res.json())
   .then(data => {
+    console.log(data)
     alert('Confirm your mail')
     window.location.href = 'login.html'
   })
